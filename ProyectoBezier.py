@@ -44,37 +44,33 @@ while running:      #While corra
     screen.fill((0,0,0))        #Pantalla en negro
     pygame.time.delay(100)    
     
+    #El juego va a realizar lo siguiente:
     try:
-        for event in pygame.event.get():
+        for event in pygame.event.get():            #cerrar la app
             if event.type == pygame.QUIT:
                 running = False
     
-        px,py = pygame.mouse.get_pos()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            pos_list.append(event.pos)
-            print(px,py)
+        px,py = pygame.mouse.get_pos()              #Se almacena la posicion x,y del mouse en la pantalla
+        if event.type == pygame.MOUSEBUTTONDOWN:    #Si se clickea
+            pos_list.append(event.pos)              #Se guardan las coordenadas actuales del mouse en el arreglo pos_list
+            print(px,py)                            #Imprimimos las coordenadas almacenadas
             print(pos_list)     #Aqui imprime el arreglo de puntos.    
             
         screen.fill(0)
-        for x, y in pos_list:
+        for x, y in pos_list:                       #Por cada tupla (x,y) en el arreglo de tuplas pos_list se dibuja un punto verde en la posicion x,y
             pygame.draw.circle(screen,(0,255,0),(x,y),(5))
-        #pygame.display.update()
-        #clock.tick(60)
         
-        if len(pos_list) >= 2:
+        if len(pos_list) >= 2:                      #Si hay mas de dos puntos en el arreglo de puntos, entonces se dibujan las lineas 
             aux = pos_list[0]
             for i in pos_list:
                 pygame.draw.line(screen, (255, 255, 255), aux, i, 3)
                 aux = i
-            #pygame.display.update()
-            #clock.tick(60)
             
-        
-        
         
         #Se actualiza el display cada vez que reseteamos uno
         if event.type == pygame.MOUSEBUTTONUP:
             press == False
+        #Importante que el pygame display update quede hasta el final.
         pygame.display.update()
         
     except Exception as e:
